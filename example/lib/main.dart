@@ -2,7 +2,6 @@ import 'package:deezer_playback_example/deezerTrack.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'credentials.dart';
 import 'package:deezer_playback/deezer_playback.dart';
@@ -53,8 +52,7 @@ class _MyAppState extends State<MyApp> {
   /// Initialize the Deezer playback sdk, by calling DeezerConnect
   Future<void> initConnector() async {
     try {
-      await DeezerPlayback.iniatilizeDeezer(appId: Credentials.appId).then(
-          (connected) {
+      await DeezerPlayback.iniatilizeDeezer(appId: Credentials.appId).then((connected) {
         if (!mounted) return;
         // If the method call is successful, update the state to reflect this change
         setState(() {
@@ -79,7 +77,7 @@ class _MyAppState extends State<MyApp> {
         setState(() {
           _connectedToDeezer = authorised;
         });
-        print("we authorized deezer"+_connectedToDeezer.toString());
+        print("we authorized deezer" + _connectedToDeezer.toString());
       }, onError: (error) {
         // If the method call trows an error, print the error to see what went wrong
         print(error);
@@ -88,19 +86,17 @@ class _MyAppState extends State<MyApp> {
       print('Failed to connect.');
     }
   }
+
   //Search for Tracks using wWb API
-Future<List<DeezerTrack>> search(String search) async {
+  Future<List<DeezerTrack>> search(String search) async {
     try {
-List response = await DeezerPlayback.searchTracks(search);
+      List response = await DeezerPlayback.searchTracks(search);
 
-List<DeezerTrack> deezerTracks =[];
-response.forEach((json)=> {
-   deezerTracks.add(DeezerTrack.fromDeezer(json))
-});
-print(deezerTracks[0].title);
-  
+      List<DeezerTrack> deezerTracks = [];
+      response.forEach((json) => {deezerTracks.add(DeezerTrack.fromDeezer(json))});
+      print(deezerTracks[0].title);
+
       return deezerTracks;
-
     } catch (e) {
       print(e);
       return null;
@@ -109,18 +105,17 @@ print(deezerTracks[0].title);
 
   Future<DeezerTrack> getTrack(String id) async {
     try {
-Object response = await DeezerPlayback.getTrack(id);
+      Object response = await DeezerPlayback.getTrack(id);
 
-DeezerTrack deezerTracks = DeezerTrack.fromDeezer(response);
+      DeezerTrack deezerTracks = DeezerTrack.fromDeezer(response);
 
-  
       return deezerTracks;
-
     } catch (e) {
       print(e);
       return null;
     }
   }
+
   /// Play an song by Deezer track/album/playlist id
   Future<void> play(String id) async {
     try {

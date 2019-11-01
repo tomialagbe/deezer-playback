@@ -10,7 +10,7 @@ import com.deezer.sdk.player.*
 import io.flutter.plugin.common.PluginRegistry
 
 
-class PlaybackControls(val mDeezerConnect: DeezerConnect?,val trackPlayer : TrackPlayer?) : BaseControl(mDeezerConnect) {
+class PlaybackControls(val mDeezerConnect: DeezerConnect?, val trackPlayer: TrackPlayer?) : BaseControl(mDeezerConnect) {
 
     /**
      * Play an Deezer track by passing the Deezer track/playlist/album id
@@ -21,10 +21,8 @@ class PlaybackControls(val mDeezerConnect: DeezerConnect?,val trackPlayer : Trac
     /**
      * Pauses the currently playing Deezer track, if successful return true
      */
-    internal fun pause(
-            result: Result
-    ) {
-        if ( mDeezerConnect != null) {
+    internal fun pause(result: Result) {
+        if (mDeezerConnect != null) {
             trackPlayer!!.pause()
             result.success(true)
         } else {
@@ -73,7 +71,7 @@ class PlaybackControls(val mDeezerConnect: DeezerConnect?,val trackPlayer : Trac
      * Toggles repeat modes
      */
     internal fun toggleRepeat(result: Result) {
-        val current : RepeatMode
+        val current: RepeatMode
         val next: RepeatMode
         if (mDeezerConnect != null) {
             current = trackPlayer!!.getRepeatMode()
